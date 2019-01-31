@@ -1,0 +1,156 @@
+{% if current_user.is_authenticated %}
+    {% extends "layoutDom.html" %}
+{% else %}
+{% extends "layout.html" %}
+{% endif %}
+{% block content %}
+    <style>
+    .rating {
+    float:left;
+    width:300px;
+}
+.rating span { float:right; position:relative; }
+.rating span input {
+    position:absolute;
+    top:0px;
+    left:0px;
+    opacity:0;
+}
+.rating span label {
+    display:inline-block;
+    width:30px;
+    height:30px;
+    text-align:center;
+    color:#FFF;
+    background-repeat:no-repeat;
+    background-size: 100% 100%;
+    background-image: url('../static/misc/star.png') !important;
+    font-size:30px;
+    margin-right:2px;
+    line-height:30px;
+    border-radius:50%;
+    -webkit-border-radius:50%;
+}
+.rating span:hover ~ span label,
+.rating span:hover label,
+.rating span.checked label,
+.rating span.checked ~ span label {
+    background-image: url('../static/misc/star_selected.png') !important;
+    color:#FFF;
+}
+    </style><!-- need to change how the stars get colored on hover but not urgent 23/1/2019  -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script>$(document).ready(function(){
+    $(".rating input:radio").attr("checked", false);
+    $('.rating input').click(function () {
+        $(".rating span").removeClass('checked');
+        $(this).parent().addClass('checked');
+    });
+
+    $('input:radio').change(
+    function(){
+        var userRating = this.value;
+    });
+});
+</script> <!-- not sure if I still need the js on the file or here for stars to work (prob not) 25/1/2019  -->
+<div class="content-section">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">{{ legend }}</legend>
+            <div class="form-group">
+                {{ form.title.label(class="form-control-label") }}
+                {% if form.title.errors %}
+                    {{ form.title(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.title.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.title(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.content.label(class="form-control-label") }}
+                {% if form.content.errors %}
+                    {{ form.content(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.content.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.content(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.content2.label(class="form-control-label") }}
+                {% if form.content2.errors %}
+                    {{ form.content2(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.content2.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.content2(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.content3.label(class="form-control-label") }}
+                {% if form.content3.errors %}
+                    {{ form.content3(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.content3.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.content3(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.content4.label(class="form-control-label") }}
+                {% if form.content4.errors %}
+                    {{ form.content4(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.content3.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.content4(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+        {{ form.rating.label(class="form-control-label") }}
+        <div class="form-group">
+        <div>
+                <div class="rating">
+                {% for subfield in form.rating %}
+                <span style="float: left"><input class="radio" {{ subfield }}>{{ subfield.data }}{{ subfield.label }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        </div>
+        <!--<div class="form-group">
+            <div class="form-check" style="float: left">
+            <div class="rating">
+                <span><input type="radio" name="rating" id="str5" value="5"><label for="str5"></label></span>
+                <span><input type="radio" name="rating" id="str4" value="4"><label for="str4"></label></span>
+                <span><input type="radio" name="rating" id="str3" value="3"><label for="str3"></label></span>
+                <span><input type="radio" name="rating" id="str2" value="2"><label for="str2"></label></span>
+                <span><input type="radio" name="rating" id="str1" value="1"><label for="str1"></label></span>
+            </div>
+            </div>
+            </div>-->
+        </fieldset>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+    </form>
+</div>
+{% endblock content %}

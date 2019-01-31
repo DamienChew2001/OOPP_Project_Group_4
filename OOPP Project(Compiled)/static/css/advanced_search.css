@@ -1,0 +1,10 @@
+.selection{justify-content: center;display:flex;height: auto;width: auto;}
+label{height:auto;width:auto;}
+#searchbar_input input[type=text]{border:1px solid #ddd;
+            cursor:pointer;
+            padding:12px 20px 2px 40px;
+            width:100%;font-size:16px;margin-bottom:12px; background:url("#") top right no-repeat;}
+#SearchForSchool{display:none;}
+#SearchForTeacher{display:none;}
+#AdScores{display:none;}
+#searchbar_input{position:relative;display:inline-block; border:1px solid #ddd}

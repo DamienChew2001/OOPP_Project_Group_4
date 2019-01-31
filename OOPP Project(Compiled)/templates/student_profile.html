@@ -1,0 +1,33 @@
+{% extends "layoutstudent.html" %}
+{% block body %}
+    <div class="content-section ">
+        <div class="media">
+            <div class="media-body mt-5">
+                <img class="rounded-circle account-img mt-1 mr-4" src="{{ image_file }}">
+                <h2 class="ml-5 mt-3">{{ current_user.username }}</h2>
+                <p class="text-secondary ml-5">Student @ {{ current_user.school }}</p>
+            </div>
+            <div class="col-sm-9 float-right mt-5">
+                <ul class="list-group mb-5">
+                    <li class="list-group-item text-muted">Profile</li>
+                    <li class="list-group-item text-right"><span><strong class="float-left">Name</strong></span>{{ current_user.username}}</li>
+                    <li class="list-group-item text-right"><span><strong class="float-left">Email</strong></span>{{ current_user.email}}</li>
+                    <li class="list-group-item text-right"><span><strong class="float-left">School/Institute</strong></span>{{ current_user.school}}</li>
+
+
+                </ul>
+                {% if current_user.is_authenticated %}
+                 <a href="{{ url_for('student_acc') }}" class="btn btn-outline-success mb-5 float-right" role="button" aria-disabled="true">Edit Profile</a>
+                {% endif %}
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+    </div>
+{% endblock %}

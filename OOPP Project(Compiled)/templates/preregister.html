@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block body %}
+  <div class="content-section mt-4 mb-5">
+      <form method="POST" action="">
+          {{ form.hidden_tag() }}
+          <fieldset class="form-group">
+              <legend class="border-bottom mb-4">Register Now!</legend>
+              <form>
+                <div class="dropdown show">
+
+                  <a class="btn btn-success dropdown-toggle mb-5" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Who are you?
+                  </a>
+
+                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                     <a class="dropdown-item" href="{{ url_for('teacher_register') }}">Teacher</a>
+                     <a class="dropdown-item" href="{{ url_for('student_register') }}">Student</a>
+                     <a class="dropdown-item" href="{{ url_for('admin_register') }}">Admin</a>
+                     <a class="dropdown-item" href="{{ url_for('alumni_register') }}">Alumni</a>
+                 </div>
+                    <a class="btn btn-outline-success mb-5" href="{{ url_for ('homepage') }}">Cancel</a>
+                </div>
+              </form>
+          </fieldset>
+      </form>
+  </div>
+    <div class="border-top pt-3 mt-5">
+     <small class="text-muted">
+         Already Have An Account? <a class="ml-2" href="{{ url_for('login') }}">Sign In</a>
+     </small>
+    </div>
+{% endblock %}

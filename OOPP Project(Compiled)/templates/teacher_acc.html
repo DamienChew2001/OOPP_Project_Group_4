@@ -1,0 +1,130 @@
+{% extends "layoutteacher.html" %}
+{% block body %}
+    <div class="content-section">
+        <div class="media ">
+        <img class="rounded-circle account-img h-25" src="{{ image_file }}">
+
+        </div>
+
+      <form method="POST" action="" enctype="multipart/form-data">
+          {{ form.hidden_tag() }}
+          <fieldset class="form-group">
+              <legend class="border-bottom mb-4">Account Info</legend>
+              <div class="row">
+              <div class="form-group ml-3 mr-3">
+                  {{ form.firstname.label(class="form-control-label") }}
+
+                  {% if form.firstname.errors %}
+                    {{ form.firstname(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.firstname.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                  {% else %}
+                      {{ form.firstname(class="form-control form-control-lg") }}
+                  {% endif %}
+              </div>
+              <div class="form-group mr-3">
+                  {{ form.lastname.label(class="form-control-label") }}
+
+                  {% if form.lastname.errors %}
+                    {{ form.lastname(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.lastname.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                  {% else %}
+                      {{ form.lastname(class="form-control form-control-lg") }}
+                  {% endif %}
+              </div>
+              <div class="form-group mr-3">
+                  {{ form.age.label(class="form-control-label") }}
+
+                  {% if form.age.errors %}
+                    {{ form.age(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.age.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                  {% else %}
+                      {{ form.age(class="form-control form-control-lg") }}
+                  {% endif %}
+              </div>
+            </div>
+              <div class="form-group">
+                  {{ form.email.label(class="form-control-label") }}
+
+                  {% if form.email.errors %}
+                    {{ form.email(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.email.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                  {% else %}
+                      {{ form.email(class="form-control form-control-lg") }}
+                  {% endif %}
+              </div>
+              <div class="form-group">
+                  {{ form.awards.label(class="form-control-label") }}
+
+                  {% if form.awards.errors %}
+                    {{ form.awards(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.awards.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                  {% else %}
+                      {{ form.awards(class="form-control form-control-lg") }}
+                  {% endif %}
+              </div>
+              <div class="form-group">
+                  {{ form.school.label(class="form-control-label") }}
+
+                  {% if form.school.errors %}
+                    {{ form.school(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.school.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                  {% else %}
+                      {{ form.school(class="form-control form-control-lg") }}
+                  {% endif %}
+              </div>
+              <div class="form-group">
+                  {{ form.faculty.label(class="form-control-label") }}
+
+                  {% if form.faculty.errors %}
+                    {{ form.faculty(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.faculty.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                  {% else %}
+                      {{ form.faculty(class="form-control form-control-lg") }}
+                  {% endif %}
+              </div>
+              <div class="form-group">
+                  {{ form.picture.label() }}
+                  {{ form.picture(class="form-control-file") }}
+                  {% if form.picture.errors %}
+                      {% for error in form.picture.errors %}
+                            <span class="text-danger">{{ error }}</span><br>
+                      {% endfor %}
+                  {% endif %}
+              </div>
+
+          </fieldset>
+          <div class="form-group">
+                  {{ form.submit(class="btn btn-outline-success") }}
+              </div>
+      </form>
+
+    </div>
+{% endblock %}

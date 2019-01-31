@@ -1,0 +1,83 @@
+{% extends "directory_layout.html"%}
+
+
+{% block body%}
+<style>
+#table1 {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+
+}
+
+td, th {
+  border: 5px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+#table2 {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 5px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #87ceeb;
+}
+</style>
+    <table id="table1" class="mt-4 ">
+        <tr>
+        <th>School name</th>
+        </tr>
+        {%  for schools in schools %}
+            <tr>
+                <td>
+                    <article class="media content-section">
+                    <div class="media-body">
+                        <div class="article-metadata">
+                            <a class=" article-title" href="/directory/{{ schools.id }}">{{ schools.name }}</a>
+                        </div>
+                    </div>
+                    </article>
+                </td>
+            </tr>
+        {%  endfor %}
+    </table>
+    <br>
+     <table id="table2">
+        <tr>
+        <th>School Waiting to be Approve</th>
+        </tr>
+        {%  for waits in waits %}
+            <tr>
+            <td>
+                <article class="media content-section">
+                <div class="media-body">
+                    <div class="article-metadata">
+                        <p class="article-title"> {{ waits.name }}</p>
+                    </div>
+                </div>
+                </article>
+            </td>
+            </tr>
+        {%  endfor %}
+    </table>
+    <div>
+        <h2>Is your School here? No?</h2>
+         <form method="get" action="{{ url_for('new_directory') }}">
+            <button type="submit" class="btn btn-outline-info mt-4">Add Your School</button>
+        </form>
+    </div>
+
+{% endblock %}

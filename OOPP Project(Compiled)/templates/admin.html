@@ -1,0 +1,59 @@
+{% extends "directory_layout.html"%}
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+
+{% block body%}
+
+    <style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+
+    <table>
+        <tr>
+        <th>School name</th>
+        </tr>
+        {%  for schools in schools %}
+            <tr>
+            <td>
+                <article class="media content-section">
+                <div class="media-body">
+                    <div class="article-metadata">
+                        <a class=" article-title" href="{{schools.id}}">{{ schools.name }}</a>
+                    </div>
+                </div>
+                </article>
+            </td>
+            </tr>
+        {%  endfor %}
+    </table>
+
+{% endblock %}

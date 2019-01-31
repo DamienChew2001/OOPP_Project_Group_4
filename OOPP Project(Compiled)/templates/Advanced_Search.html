@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Advanced_Search</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="#"/>
+    <link rel="stylesheet" type="text/css" href="../static/css/advanced_search.css"/>
+<style>
+      /* Appearance */
+    body, table { font-family: sans-serif; }
+    table { border-collapse: collapse; }
+    td, th { padding: 6px; }
+    th { background: #333; color: white; }
+    tbody tr:nth-child(odd) { background: #dfdfdf; }
+    table { border: 1px solid red; }
+
+    /* Scrollability of table */
+    table { width: 500px; } /* fixed width table */
+    thead tr { display: block; } /* makes it sizeable */
+    tbody {
+      display: block; /* makes it sizeable */
+      height: 170px; /* height of scrollable area */
+      overflow: auto; /* scroll rather than overflow */
+      width: 100%; /* fill the box */
+    }
+    thead th { width: 250px; } /* fixed width for THs */
+    tbody td { width: 242px; } /* fixed width for TDs */
+    /* the tbody needs to be 16px less than the thead, for the scrollbar */
+
+</style>
+ <script src="http://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
+<script>
+    var For='';
+    var category="none";
+    var schoolSelect='SearchBySchoolName';
+    var TeacherSelect='Search_name';
+function selectSearch(select,activate,other,deactivat){
+    document.getElementsByClassName("selection").disabled=false;
+    document.getElementsByClassName("selection").checked=false;
+    var radio=document.getElementById(deactivat);
+    var on=document.getElementById(activate);
+    var off=document.getElementById(other);
+    if (radio!==null) {
+        radio.checked = false;
+        radio.disabled = false;
+    }
+    on.style.display="block";
+    on.disabled=false;
+    if (off!=null) {
+        off.style.display = "none";
+        off.disabled = true;
+    }
+    if (activate==="SearchForSchool") {
+        document.getElementById("SearchByTeacher").checked=false;
+        category = "schools";
+        document.getElementById(schoolSelect).checked=false;
+        document.getElementById(schoolSelect).disabled=false;
+        schoolSelect="SearchBySchoolName";
+        Searchfor('name','SearchBySchoolName','first');
+    }
+    else{
+        if(activate==="SearchForTeacher"){
+            document.getElementById("SearchBySchool").checked=false;
+            category="teachers";
+            document.getElementById(TeacherSelect).checked=false;
+            document.getElementById(TeacherSelect).disabled=false;
+            document.getElementById(schoolSelect).disabled=false;
+            document.getElementById(schoolSelect).checked=false;
+            TeacherSelect="Search_name";
+            Searchfor('name','Search_name','first');
+        }
+        else{
+            if(activate==="AdScoreSearch"){
+                var deactivate=other.split(" ");
+                var deactivate1=document.getElementById(deactivate[0]);
+                var deactivate2=document.getElementById(deactivate[1]);
+                deactivate1.checked=false;
+                deactivate2.checked=false;
+                category=select;
+                document.getElementById(schoolSelect).checked=false;
+                document.getElementById(schoolSelect).disabled=false;
+                document.getElementById(TeacherSelect).checked=false;
+                document.getElementById(TeacherSelect).disabled=false;
+                schoolSelect="range";
+                Searchfor('range','range','first');
+            }
+            else{
+                if (activate==="SearchByZone"){
+                    category=activate;
+                }
+            }
+        }
+    }
+}
+function Searchfor(by,click,condition){
+    For=by;
+    select=document.getElementById('searchbar_input');
+    select.value="";
+    if (by==="west" || by==="north" || by==="east" || by==="south"){
+        select.value=by;
+        searchbar(by);
+    }
+    document.getElementById("searchbar_button").setAttribute('onclick',"searchbar('"+by+"')");
+    if (by==="range"){
+        select.placeholder="Eg 5-8";
+    }
+    else {
+        select.placeholder = "Search by " + For + "....";
+    }
+    feedback=document.getElementById(click);
+    feedback.disabled=true;
+    if (category==="schools" || category==="L1R5" || category==="L1R4" || category==="PSLE"){
+        on=document.getElementById(schoolSelect);
+        if(condition==="first"){
+            on.checked=true;
+            on.disabled=true;
+        }
+        else {
+            on.checked = false;
+            on.disabled= false;
+        }
+        schoolSelect=click;
+    }
+    else{
+        if(category==="teachers"){
+            on=document.getElementById(TeacherSelect);
+            if(condition==="first"){
+                on.checked=true;
+                on.disabled=true;
+            }
+            else{
+                on.checked=false;
+                on.disabled=false;
+            }
+            TeacherSelect=click;
+        }
+
+    }
+}
+function searchbar(by) {
+    var input = document.getElementById('searchbar_input').value;
+    if (input==="" && category!=="SearchByZone"){
+        return
+    }
+    if (category === "teachers" || category==="schools") {
+        form = document.getElementById("SearchForm");
+        document.getElementById("table").value = category;
+        document.getElementById("category").value = by;
+        document.getElementById("input").value = input;
+        form.submit();
+    }
+    else {
+        if (category === "PSLE" || category === "L1R5" || category === "L1R4") {
+            form = document.getElementById("SearchForm");
+            document.getElementById("table").value = "schools";
+            document.getElementById("category").value = category;
+            document.getElementById("input").value = input;
+            document.getElementById("by").value = by;
+            form.submit();
+        } else {
+            if (category === "SearchByZone") {
+                form = document.getElementById("SearchForm");
+                document.getElementById("table").value="schools";
+                document.getElementById("category").value="zone";
+                document.getElementById("input").value=input;
+                form.submit();
+            }
+        }
+    }
+}
+</script>
+</head>
+<body>
+{% if current_user.is_authenticated %}
+{% include 'includes/navbar1.html' %}
+{% else %}
+    {% include 'includes/navbar.html' %}
+{% endif %}
+    <div class="container">
+        {% block body %}{% endblock %}
+        {% if message %}
+<p class=error><strong>Message:</strong> {{ message }}</p>
+  {% endif %}
+<div id="Search">
+<div id="SearchBy">
+    <label>
+        <input class="selection" type="radio" id="SearchBySchool" onclick=selectSearch("SearchBySchool","SearchForSchool","SearchForTeacher","SearchByTeacher") >Search for schools
+    </label>
+    <label>
+        <input class="selection" type="radio" id="SearchByTeacher" onclick=selectSearch("SearchByTeacher","SearchForTeacher","SearchForSchool","SearchBySchool") >Search for teachers
+    </label>
+</div>
+<div id="SearchForSchool" disabled>
+    <label>
+        <input class="selection" type="radio" id="SearchBySchoolName" onclick=Searchfor('name','SearchBySchoolName','')>Search by name</input>
+    </label>
+
+    <label>
+        <input class="selection" type="radio" id="SearchBySchoolAddress" onclick="Searchfor('address','SearchBySchoolAddress','')">Search by address</input>
+    </label>
+    <label>
+        <input class="selection" type="radio" id="SearchBySchoolAdmission" onclick=selectSearch("SearchBySchoolAdmission","AdScores","SearchByZone","SearchBySchoolZone")>search by Admission score</input>
+    </label>
+    <label>
+        <input class="selection" type="radio" id="SearchBySchoolZone" onclick=selectSearch('SearchBySchoolZone','SearchByZone','AdScores',"SearchBySchoolAdmission")>Search by zone</input>
+    </label>
+    <div id="AdScores" disabled style="display:none">
+        <label>
+            <input class="selection" type="radio" id="ForSecondary" onclick="selectSearch('PSLE','AdScoreSearch','L1R5 L1R4')">PSLE</input>
+        </label>
+        <label>
+            <input class="selection" type="radio" id="L1R5" onclick="selectSearch('L1R5','AdScoreSearch','L1R4 ForSecondary')">L1R5</input>
+        </label>
+        <label>
+            <input class="selection" type="radio" id="L1R4" onclick="selectSearch('L1R4','AdScoreSearch','L1R5 ForSecondary')">L1R4</input>
+        </label>
+        <div id="AdScoreSearch" disabled style="display: none">
+            <label>
+                <input class="selection" type="radio" id="range" onclick="Searchfor('range','range','')" />Search by range
+            </label>
+            <label>
+                <input class="selection" type="radio" id="min" onclick="Searchfor('min','min','')"/>Search by minimum score
+            </label>
+        </div>
+    </div>
+    <div id="SearchByZone" disabled style="display: none">
+        <label>
+            <input class="selection" type="radio" id="West" onclick="Searchfor('west','West')">West
+        </label>
+        <label>
+            <input class="selection" type="radio" id="North" onclick="Searchfor('north','North')">North
+        </label>
+        <label>
+            <input class="selection" type="radio" id="East" onclick="Searchfor('east','East')">East
+        </label>
+        <label>
+            <input class="selection" type="radio" id="South" onclick="Searchfor('south','South')">South
+        </label>
+    </div>
+    <form method="POST" id="SearchForm" action="{{ request.path }}">
+        {{ form.csrf_token }}
+        {{ form.category }}
+        {{ form.table }}
+        {{ form.input }}
+        {{ form.by }}
+    </form>
+</div>
+<div id="SearchForTeacher" disabled style="display:none">
+    <label>
+        <input type="radio" id="Search_name" onclick="Searchfor('name','Search_name','')">Search by name</input>
+    </label>
+    <label>
+        <input type="radio" id="Search_fac" onclick="Searchfor('faculty','Search_fac','')">Search by faculty</input>
+    </label>
+    <label>
+        <input type="radio" id="Search_SchoolName" onclick="Searchfor('school','Search_SchoolName','')">Search By school</input>
+    </label>
+</div>
+    <br>
+<input type="text" id="searchbar_input" placeholder="Select a search category">
+    <button id="searchbar_button" onclick="searchbar()">Search</button>
+    <div class="limiter">
+    <table id="Directory" class="sortable">
+        {% if table!=None %}
+    {% if category=="schools" or category=="L1R5" or category=="L1R4" or category=="PSLE" %}
+        <thead>
+        <tr class="row100 head">
+            <th class="cell100 column1">
+                name
+            </th>
+            <th class="cell100 column2">
+                zone
+            </th>
+            <th class="cell100 column3">
+                address
+            </th>
+            {% if category=="L1R5" %}
+            <th class="cell100 column4">
+                L1R5
+            </th>
+            {% elif category=="L1R4" %}
+            <th class="cell100 column4">
+                L1R4
+            </th>
+            {% elif category=="PSLE" %}
+            <th class="cell100 column4">
+                PSLE
+            </th>
+            {% endif %}
+        </tr>
+        </thead>
+    {% elif category=="teachers" %}
+        <thead>
+        <tr>
+            <th>
+                name
+            </th>
+            <th>
+                faculty
+            </th>
+            <th>
+                school
+            </th>
+        </tr>
+        </thead>
+        {% endif %}
+    {% endif %}
+        {% if table!=None %}
+        <tbody>
+        {% for object in table %}
+        <tr>
+            <td>
+                <a href="{{ object['link'] }}" >{{ object["name"] }}</a>
+            </td>
+            {% if category=="schools" or category=="L1R5" or category=="L1R4" or category=="PSLE" %}
+            <td>
+                {{ object["zone"] }}
+            </td>
+            <td>
+               {{ object["address"] }}
+            </td>
+            {% if category=="L1R5" or category=="L1R4" or category=="PSLE" %}
+            <td>
+                {{ object["adscore"] }}
+            </td>
+            {% endif %}
+            {% elif category=="teachers" %}
+            <td>
+                {{ object["faculty"] }}
+            </td>
+            <td>
+                {{ object["school"] }}
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+        </tbody>
+        {% endif %}
+    </table>
+    </div>
+</div>
+    {% include 'includes/footer.html' %}
+    </div>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</body>
+</html>

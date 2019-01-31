@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block body %}
+    <div class="content-section ">
+
+        <div class="media">
+        <img class="rounded-circle account-img" src="{{ image_file }}">
+         <div class="media-body ">
+           <h2 class="account-heading">{{ teacher.firstname + " " + teacher.lastname  }}</h2>
+           <p class="text-secondary">Teacher @ {{ teacher.school }}</p>
+         </div>
+        </div>
+
+        <div class ="container">
+            <div class="col-sm-6">
+                <ul class="list-group">
+                    <li class="list-group-item text-muted">Profile</li>
+                    <li class="list-group-item "><span class="pull-left"><strong>Name</strong></span>{{ teacher.firstname + " " + teacher.lastname}}</li>
+                    <li class="list-group-item "><span class="pull-left"><strong>Age</strong></span> {{ teacher.age }}</li>
+                    <li class="list-group-item "><span class="pull-left"><strong>Email</strong></span> {{ teacher.email }}</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong class="pull-left">School/Institute</strong></span> {{ teacher.school }}</li>
+                    <li class="list-group-item text-right"><span><strong class="text-left">Awards/Short Description</strong></span> {{ teacher.awards }}</li>
+
+                </ul>
+    </div>
+        </div>
+    </div>
+{% endblock %}

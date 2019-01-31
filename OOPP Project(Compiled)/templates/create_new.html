@@ -1,0 +1,62 @@
+{% extends 'directory_layout.html' %}
+{% block body %}
+    <div class = "content-section">
+        <form method="POST" action={{ url_for('new_directory') }}>
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <strong><legend class="border-bottom mb-4"> {{ legend }} </legend></strong>
+                <div class="form-group">
+                {{ form.name.label(class="form-control-label") }}
+                {{ form.name(class="form-control-lg") }}
+                </div>
+                <div class="form-group">
+                {{ form.address.label(class="form-control-label") }}
+                {{ form.address(class="form-control-lg") }}
+                </div>
+                <div class="form-group">
+                     {{ form.contact.label(class="form-control-label") }}
+                     {{ form.contact(class="form-control-lg") }}
+                </div>
+                <div class="form-group" style="display: inline-block">
+                    {{ form.type.label(class="form-control-label") }}
+                    {{ form.type(class="form-control-lg") }}
+                </div>
+                <div class="form-group">
+                    {{ form.Adscore.label(class="form-control-label") }}
+                    {{ form.Adscore(class="form-control-lg") }}
+                </div>
+                <div class="form-group" style="display:inline-block;">
+                     {{ form.zone.label(class="form-control-label") }}
+                     {{ form.zone(class="form-control-lg") }}
+                </div>
+                <div class="form-group">
+                {{ form.year.label(class="form-control-label") }}
+                {{ form.year(class="form-control-lg") }}
+                </div>
+                <div class="form-group">
+                {{ form.website.label(class="form-control-label") }}
+                {{ form.website(class="form-control-lg") }}
+                </div>
+                <div class="form-group">
+                {{ form.achievement.label(class="form-control-label") }}
+                {{ form.achievement(class="form-control-lg") }}
+                </div>
+                <div class="form-group">
+                {{ form.achievement_1.label(class="form-control-label") }}
+                {{ form.achievement_1(class="form-control-lg") }}
+                </div>
+                <div class="form-group">
+                {{ form.niche.label(class="form-control-label") }}
+                {{ form.niche(class="form-control-lg") }}
+                </div>
+                <div class="form-group">
+                {{ form.motto.label(class="form-control-label") }}
+                {{ form.motto(class="form-control-lg") }}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
+{% endblock %}

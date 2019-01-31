@@ -1,0 +1,173 @@
+{% extends "directory_layout.html"%}
+
+{% block body %}
+<style>
+#table3 {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 5px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #87ceeb;
+}
+</style>
+        <article class="media content-section">
+      <div class="media-body">
+        <div class="article-metadata">
+<table id="table3">
+        <tr>
+        <th>{{ school.name }}</th>
+        </tr>
+            <tr>
+                <td>
+                    <article class="media content-section">
+                    <div class="media-body">
+                        <div class="article-metadata">
+                            The address of the school is &nbsp;{{ school.address }}
+                        </div>
+                    </div>
+                    </article>
+                </td>
+            </tr>
+    <tr>
+                    <td>
+                        <article class="media content-section">
+                        <div class="media-body">
+                            <div class="article-metadata">
+                                The school's admission is based on&nbsp{{ school.type }} results
+                            </div>
+                        </div>
+                        </article>
+                    </td>
+             </tr>
+    <tr>
+                    <td>
+                        <article class="media content-section">
+                        <div class="media-body">
+                            <div class="article-metadata">
+                                The school's admission score is&nbsp{{ school_Adscore }}
+                            </div>
+                        </div>
+                        </article>
+                    </td>
+             </tr>
+    <tr>
+                    <td>
+                        <article class="media content-section">
+                        <div class="media-body">
+                            <div class="article-metadata">
+                                The school's zone is&nbsp{{ school.zone }}
+                            </div>
+                        </div>
+                        </article>
+                    </td>
+             </tr>
+             <tr>
+                    <td>
+                        <article class="media content-section">
+                        <div class="media-body">
+                            <div class="article-metadata">
+                                The contact number of the school is &nbsp;{{ school.contact }}
+                            </div>
+                        </div>
+                        </article>
+                    </td>
+             </tr>
+             <tr>
+                    <td>
+                        <article class="media content-section">
+                        <div class="media-body">
+                            <div class="article-metadata">
+                                The year of establishment is &nbsp;{{ school.year }}
+                            </div>
+                        </div>
+                        </article>
+                    </td>
+             </tr>
+             <tr>
+                    <td>
+                        <article class="media content-section">
+                        <div class="media-body">
+                            <div class="article-metadata">
+                                The URL for the school website is &nbsp;{{ school.website }}
+                            </div>
+                        </div>
+                        </article>
+                    </td>
+             </tr>
+             <tr>
+                    <td>
+                        <article class="media content-section">
+                        <div class="media-body">
+                            <div class="article-metadata">
+                                The school's academic achievement is &nbsp;{{ school.achievement }}
+                            </div>
+                        </div>
+                        </article>
+                    </td>
+             </tr>
+             <tr>
+             <tr>
+                    <td>
+                        <article class="media content-section">
+                        <div class="media-body">
+                            <div class="article-metadata">
+                                The school's niche area is &nbsp;{{ school.niche }}
+                            </div>
+                        </div>
+                        </article>
+                    </td>
+             </tr>
+             <tr>
+                    <td>
+                        <article class="media content-section">
+                        <div class="media-body">
+                            <div class="article-metadata">
+                                The school's motto is &nbsp;{{ school.motto }}
+                            </div>
+                        </div>
+                        </article>
+                    </td>
+             </tr>
+
+
+ </table>
+        </div>
+      </div>
+    </article>
+     <div>
+            <form method="POST" action={{ url_for('add', school_id=school.id) }}>
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+            </form>
+            <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#RejectModal">Reject</button>
+        </div>
+     <!-- Modal -->
+      <div class="modal fade" id="RejectModal" tabindex="-1" role="dialog" aria-labelledby="RejectModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="RejectModalLabel">Reject School?</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <form action="{{ url_for('reject', school_id=school.id) }}" method="POST">
+                <input class="btn btn-danger" type="submit" value="Reject">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock %}

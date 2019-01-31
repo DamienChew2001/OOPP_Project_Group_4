@@ -1,0 +1,237 @@
+{% if current_user.is_authenticated %}
+    {% extends "layoutDom.html" %}
+{% else %}
+{% extends "layoutDom.html" %}
+{% endif %}
+{% block content %}
+          <div class="jumbotron">
+        <div class="container">
+          <h1 class="display-4">{{ schools[schoolvalue].name }}</h1>
+          <p>
+              Year of Establishment: {{ schools[schoolvalue].year }}
+              <br>
+              Academic Achievement: {{ schools[schoolvalue].achievement }}
+              <br>
+              Non-Academic Achievement: {{ schools[schoolvalue].achievement_1 }}
+              <br>
+              Location of School: {{ schools[schoolvalue].address }}
+              <br>
+              School's Website: {{ schools[schoolvalue].website }}
+              <br>
+              The niche area of {{ schools[schoolvalue].name }} is {{ schools[schoolvalue].niche }} and their motto is {{ schools[schoolvalue].motto }}
+              <br>
+              For more information pls call: {{ schools[schoolvalue].contact }}
+          </p>
+          <p><a class="btn btn-primary btn-lg" href="{{ url_for('new_post') }}">New Review</a></p>
+            <div class="form-group col-6">
+            <label for="filterSelect">Filters for reviews below:</label>
+            <select multiple class="form-control" id="filterSelect">
+                <option onclick="window.location.href='{{ url_for('review_nofilter') }}'">Show all reviews</option>
+                <option onclick="window.location.href='{{ url_for('review_filter1') }}'">Show reviews that assess school facilities</option>
+                <option onclick="window.location.href='{{ url_for('review_filter2') }}'">Show reviews that assess school staff</option>
+                <option onclick="window.location.href='{{ url_for('review_filter3') }}'">Show reviews that give school management advice</option>
+                <option onclick="window.location.href='{{ url_for('review_filter4') }}'">Show reviews with facilities, staff and advice fields filled out</option>
+            </select>
+        </div>
+      </div>
+    <div class="container">
+    {% for post in posts %}
+        {% if filter == '1' %}
+            {% if post.content2 == ""%}
+                {{ continue }}
+                {% else %}
+                <article class="media content-section">
+                    <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ post.author.username }}</a>
+              <small class="text-muted">{{ post.date_posted.strftime('%d/%m/%Y, %H:%M') }}</small>
+            </div>
+            <h2><a class="article-title" href="{{ url_for('post', post_id=post.id, post_content=post.content) }}">{{ post.title }}</a></h2>
+            <p class="article-content">{{ post.content }}</p>
+              <h5>On Facilities:</h5>
+              {% if post.content2 == "" %}
+                <p class="article-content"> NIL</p>
+              {% else %}
+                <p class="article-content"> {{ post.content2 }}</p>
+              {% endif %}
+              <h5>On Staff:</h5>
+              {% if post.content3 == "" %}
+                <p class="article-content"> NIL</p>
+              {% else %}
+                <p class="article-content"> {{ post.content3 }}</p>
+              {% endif %}
+              <h5>Advice to School:</h5>
+              {% if post.content4 == "" %}
+                <p class="article-content"> NIL</p>
+              {% else %}
+                <p class="article-content"> {{ post.content4 }}</p>
+              {% endif %}
+                <h5>Overall rating:</h5>
+                {% for x in range(post.rating) %}
+                    <span><img src="../static/misc/star_selected.png" style="height: 30px;width: 30px;"></span>
+                {% endfor %}
+              <div>
+          </div>
+          </div>
+        </article>
+            {% endif %}
+        {% elif filter == '2' %}
+            {% if post.content3 == ""%}
+                {{ continue }}
+                {% else %}
+                <article class="media content-section">
+                    <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ post.author.username }}</a>
+              <small class="text-muted">{{ post.date_posted.strftime('%d/%m/%Y, %H:%M') }}</small>
+            </div>
+            <h2><a class="article-title" href="{{ url_for('post', post_id=post.id, post_content=post.content) }}">{{ post.title }}</a></h2>
+            <p class="article-content">{{ post.content }}</p>
+              <h5>On Facilities:</h5>
+              {% if post.content2 == "" %}
+                <p class="article-content"> NIL</p>
+              {% else %}
+                <p class="article-content"> {{ post.content2 }}</p>
+              {% endif %}
+              <h5>On Staff:</h5>
+              {% if post.content3 == "" %}
+                <p class="article-content"> NIL</p>
+              {% else %}
+                <p class="article-content"> {{ post.content3 }}</p>
+              {% endif %}
+              <h5>Advice to School:</h5>
+              {% if post.content4 == "" %}
+                <p class="article-content"> NIL</p>
+              {% else %}
+                <p class="article-content"> {{ post.content4 }}</p>
+              {% endif %}
+                <h5>Overall rating:</h5>
+                {% for x in range(post.rating) %}
+                    <span><img src="../static/misc/star_selected.png" style="height: 30px;width: 30px;"></span>
+                {% endfor %}
+              <div>
+          </div>
+          </div>
+        </article>
+            {% endif %}
+        {% elif filter == '3' %}
+                        {% if post.content4 == ""%}
+                {{ continue }}
+                {% else %}
+                <article class="media content-section">
+                    <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ post.author.username }}</a>
+              <small class="text-muted">{{ post.date_posted.strftime('%d/%m/%Y, %H:%M') }}</small>
+            </div>
+            <h2><a class="article-title" href="{{ url_for('post', post_id=post.id, post_content=post.content) }}">{{ post.title }}</a></h2>
+            <p class="article-content">{{ post.content }}</p>
+              <h5>On Facilities:</h5>
+              {% if post.content2 == "" %}
+                <p class="article-content"> NIL</p>
+              {% else %}
+                <p class="article-content"> {{ post.content2 }}</p>
+              {% endif %}
+              <h5>On Staff:</h5>
+              {% if post.content3 == "" %}
+                <p class="article-content"> NIL</p>
+              {% else %}
+                <p class="article-content"> {{ post.content3 }}</p>
+              {% endif %}
+              <h5>Advice to School:</h5>
+              {% if post.content4 == "" %}
+                <p class="article-content"> NIL</p>
+              {% else %}
+                <p class="article-content"> {{ post.content4 }}</p>
+              {% endif %}
+                <h5>Overall rating:</h5>
+                {% for x in range(post.rating) %}
+                    <span><img src="../static/misc/star_selected.png" style="height: 30px;width: 30px;"></span>
+                {% endfor %}
+              <div>
+          </div>
+          </div>
+        </article>
+            {% endif %}
+        {% elif filter == '4' %} <!-- facilities, staff and advice -->
+            {% if post.content2 == "" or post.content3 == "" or post.content4 == "" %}
+                {{ continue }}
+                {% else %}
+                <article class="media content-section">
+        <!--<img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">-->
+          <div class="media-body">
+            <div class="article-metadata">
+
+              <a class="mr-2" href="#">{{ post.author.username }}</a>
+              <small class="text-muted">{{ post.date_posted.strftime('%d/%m/%Y, %H:%M') }}</small>
+            </div>
+            <h2><a class="article-title" href="{{ url_for('post', post_id=post.id, post_content=post.content) }}">{{ post.title }}</a></h2>
+            <p class="article-content">{{ post.content }}</p>
+              <h5>On Facilities:</h5>
+              {% if post.content2 == "" %}
+                <p class="article-content"> NIL</p>
+              {% else %}
+                <p class="article-content"> {{ post.content2 }}</p>
+              {% endif %}
+              <h5>On Staff:</h5>
+              {% if post.content3 == "" %}
+                <p class="article-content"> NIL</p>
+              {% else %}
+                <p class="article-content"> {{ post.content3 }}</p>
+              {% endif %}
+              <h5>Advice to School:</h5>
+              {% if post.content4 == "" %}
+                <p class="article-content"> NIL</p>
+              {% else %}
+                <p class="article-content"> {{ post.content4 }}</p>
+              {% endif %}
+                <h5>Overall rating:</h5>
+                {% for x in range(post.rating) %}
+                    <span><img src="../static/misc/star_selected.png" style="height: 30px;width: 30px;"></span>
+                {% endfor %}
+              <div>
+          </div>
+          </div>
+        </article>
+            {% endif %}
+        {% else %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+
+              <a class="mr-2" href="#">{{ post.author.username }}</a>
+              <small class="text-muted">{{ post.date_posted.strftime('%d/%m/%Y, %H:%M') }}</small>
+            </div>
+            <h2><a class="article-title" href="{{ url_for('post', post_id=post.id, post_content=post.content) }}">{{ post.title }}</a></h2>
+            <p class="article-content">{{ post.content }}</p>
+              <h5>On Facilities:</h5>
+              {% if post.content2 == "" %}
+                <p class="article-content"> NIL</p>
+              {% else %}
+                <p class="article-content"> {{ post.content2 }}</p>
+              {% endif %}
+              <h5>On Staff:</h5>
+              {% if post.content3 == "" %}
+                <p class="article-content"> NIL</p>
+              {% else %}
+                <p class="article-content"> {{ post.content3 }}</p>
+              {% endif %}
+              <h5>Advice to School:</h5>
+              {% if post.content4 == "" %}
+                <p class="article-content"> NIL</p>
+              {% else %}
+                <p class="article-content"> {{ post.content4 }}</p>
+              {% endif %}
+                <h5>Overall rating:</h5>
+                {% for x in range(post.rating) %}
+                    <span><img src="../static/misc/star_selected.png" style="height: 30px;width: 30px;"></span>
+                {% endfor %}
+              <div>
+          </div>
+          </div>
+        </article>
+        {% endif %}
+    {% endfor %}
+    </div>
+          </div>
+{% endblock content %}

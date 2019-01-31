@@ -1,0 +1,76 @@
+
+{% extends 'layout.html' %}
+{% block body %}
+    <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Bootstrap core CSS -->
+    <link href="static/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Bootstrap Modal -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+  </head>
+
+  <body>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <div class="row">
+
+        <!-- Blog Entries Column -->
+        <div class="col-md-8">
+
+          <!-- Blog Post -->
+          <div class="card mb-4">
+            <img class="card-img-top" src="/static/img/profile_pics/{{ eventpage.image_file }}" style=" height:400px; ">
+            <div class="card-body">
+              <h2 class="card-title">{{ eventpage.title }}</h2>
+                <hr>
+                <p class="card-text">{{ eventpage.data }}</p>
+                <p class="card-text"> Event Link: <a href= {{ eventpage.link }} >{{ eventpage.link }}</a></p>
+            </div>
+            <div class="card-footer text-muted">
+              <p style="float: left"><em>Registration ends on:</em>{{ eventpage.date }}</p>
+              <a class="btn btn-secondary btn-sm m-1" href="{{ url_for('update_event', eventpage_id=eventpage.id) }}">Edit</a>
+              <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+            </div>
+          </div>
+
+        </div>
+
+
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteModalLabel">Are you sure you want to delete?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <form action="{{ url_for('delete_event', eventpage_id=eventpage.id) }}" method="POST">
+                <input class="btn btn-danger" type="submit" value="Delete">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </body>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "directory_layout.html"%}
+
+{% block body%}
+    <article class="media content-section">
+  <div class="media-body">
+    <div class="article-metadata">
+        <h2 class="article-title">{{ school_1.moto }}</h2>
+     <h2 class=" article-title "> Welcome to the home page of &nbsp;{{ school_1.name }}</h2>
+        <h3 class="article-content">Our school has achieved notable achievements in {{ school_1.achievement }} and {{ school_1.achievement_1 }}</h3>
+        <h3 class="article-content">We were founded in the year {{ school_1.year }}</h3>
+        <h3 class="article-content">We are in the {{ school_1.zone }} cluster at {{ school_1.address }}</h3>
+        <h3 class="article-content">You can contact us by phone using {{ school_1.contact }} or on our school portal at {{ school_1.website }}</h3>
+        <h3 class="article-content">Please leave a review of the school <a href="/review/{{ school_1.id }}">here</a></h3>
+    </div>
+  </div>
+</article>
+{% endblock %}
